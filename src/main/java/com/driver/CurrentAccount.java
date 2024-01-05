@@ -1,5 +1,7 @@
 package com.driver;
 
+import java.util.HashMap;
+
 import static java.lang.String.valueOf;
 
 public class CurrentAccount extends BankAccount{
@@ -26,7 +28,7 @@ public class CurrentAccount extends BankAccount{
         // If it is not possible, throw "Valid License can not be generated" Exception
 
         if(!isNumberValid(tradeLicenseId)){
-            String rearrangedId = arrangeString(tradeLicenseId);
+            String rearrangedId = rearrangeString(tradeLicenseId);
             if(rearrangedId == ""){
                 throw new Exception("Valid License can not be generated");
             }else{
@@ -43,6 +45,29 @@ public class CurrentAccount extends BankAccount{
             }
         }
         return true;
+    }
+
+    public String rearrangeString(String s){
+        HashMap<Character, Integer> map = new HashMap<>();
+        String ans = "";
+        for(char ch : s.toCharArray()){
+            map.put(ch, map.getOrDefault(ch,0)+1);
+        }
+
+        int count = s.length();
+
+        while(count != 0){
+            for(char ch : map.keySet()){
+                if(map.get(ch) >= 1){
+                    count--;
+                    ans = ans + ch;
+                    int x = map.getOrDefault(ch,0);
+                    map.put(ch,x-1);
+                }
+            }
+        }
+        if(!isNumberValid(ans)) return "";
+        return ans;
     }
 
 

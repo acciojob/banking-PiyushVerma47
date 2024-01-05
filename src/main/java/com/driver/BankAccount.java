@@ -53,7 +53,6 @@ public class BankAccount {
             }
             return accNo;
         }
-//        return null;
     }
 
     public void deposit(double amount) {
